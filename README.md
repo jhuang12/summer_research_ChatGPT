@@ -2,12 +2,21 @@
 This is a summer research project for 2023, regarding application with ChatGPT
 
 To run the application:
-- Install streamlit 
+- Install streamlit and streamlit_extras
 ```
 pip install streamlit
+pip install streamlit_extras
 ```
-- In terminal go to the directory where you have the index.py file.
-- Run command
+- Install redis
 ```
-streamlit run index.py
+brew install redis
+```
+- Start redis server
+```
+redis-server
+```
+- In terminal go to the directory where you have the Login.py file.
+- Run the streamlit app
+```
+streamlit run Login.py
 ```
