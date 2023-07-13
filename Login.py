@@ -2,8 +2,12 @@ import streamlit as st
 import redis
 import datetime
 
+PORT = 6379
+HOST = "localhost"
+DATE_FORMAT = '%y/%m/%d'
+
 st.set_page_config(page_title="Login")
-r = redis.Redis(host='localhost', port=6379, decode_responses=True)
+r = redis.Redis(host=HOST, port=PORT, decode_responses=True)
 st.title('Login / Signup')
 tab1, tab2 = st.tabs(["Login", "SignUp"])
 
@@ -39,7 +43,7 @@ with tab2:
             user_data = {
                 "password": password,
                 "city": city,
-                "dob": dob.strftime("%Y-%m-%d"),
+                "dob": dob.strftime(DATE_FORMAT),
                 "gender": gender,
                 "email": email,
             }

@@ -5,8 +5,12 @@ import datetime
 import json
 from streamlit_extras.switch_page_button import switch_page
 
+PORT = 6379
+HOST = "localhost"
+DATE_FORMAT = '%y/%m/%d'
+
 st.set_page_config(page_title="Expense Tracker")
-r = redis.Redis(host='localhost', port=6379, decode_responses=True)
+r = redis.Redis(host=HOST, port=PORT, decode_responses=True)
 st.title('Expense Tracker')
 
 if 'username' not in st.session_state:
@@ -43,7 +47,7 @@ else:
             expense_data = {
                 "Category": category,
                 "Description": description,
-                "Date" : expense_date.strftime('%y/%m/%d'),
+                "Date" : expense_date.strftime(DATE_FORMAT),
                 "Amount": amount,
             }
             r.hset(f"{st.session_state['username']}:expenses", expense_id, json.dumps(expense_data))
