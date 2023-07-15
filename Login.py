@@ -1,6 +1,8 @@
 import streamlit as st
 import redis
 import datetime
+from streamlit_extras.switch_page_button import switch_page
+import time
 
 PORT = 6379
 HOST = "localhost"
@@ -20,9 +22,11 @@ with tab1:
     if submit_button:
         stored_password = r.hget(username, "password")
         if stored_password == password:
-            st.success("Login successful!")
+            st.success("Login successful! Redirecting to Home page...")
             st.session_state['username'] = username
             choice = "Expense Tracker"
+            time.sleep(1.5)
+            switch_page("Home")
         else:
             st.error("Invalid username or password.")
 
