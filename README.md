@@ -1,7 +1,7 @@
 # summer_research_ChatGPT
 This is a summer research project for 2023, regarding application with ChatGPT
 
-To run the application:
+To run the application locally:
 - Install streamlit and streamlit_extras
 ```
 pip install streamlit
@@ -19,4 +19,14 @@ redis-server
 - Run the streamlit app
 ```
 streamlit run Login.py
+```
+
+To run the application on docker:
+- Install docker
+link[https://docs.docker.com/engine/install/]
+
+- In terminal go to the directory where you have the Login.py file.
+- Run docker image using following command
+``` 
+docker-compose up
 ```

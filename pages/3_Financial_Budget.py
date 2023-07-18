@@ -16,7 +16,7 @@ def setPieData():
 
 
 PORT = 6379
-HOST = "localhost"
+HOST = "redis"
 DATE_FORMAT = '%y/%m/%d'
 
 st.set_page_config(page_title="Financial Budget")

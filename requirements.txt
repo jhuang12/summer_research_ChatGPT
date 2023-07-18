@@ -1,0 +1,6 @@
+streamlit
+streamlit-extras>=0.2.5
+altair<5
+redis
+streamlit-chat
+openai

@@ -4,7 +4,7 @@ from streamlit_extras.switch_page_button import switch_page
 
 
 PORT = 6379
-HOST = "localhost"
+HOST = "redis"
 
 st.set_page_config(page_title="Home")
 r = redis.Redis(host=HOST, port=PORT, decode_responses=True)
