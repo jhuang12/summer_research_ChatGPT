@@ -17,6 +17,7 @@ def showPage():
         
 
         if st.form_submit_button("Submit"):
+            st.session_state["ifSumbit"] = True
             user_data = {
                 "is_international": is_international,
                 "monthly_budget": monthly_budget,

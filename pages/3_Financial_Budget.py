@@ -90,10 +90,9 @@ else:
             message(msg.content)
 
 
-    if not state.submitted:
+    if "isSubmit" not in st.session_state:
         st.write("No information available, we cannot help you")
     else:
-        
         st.write("TODO: May need more questions to this specific topic -> Generate Template based on information -> Send to ChatGPT -> Generate graphs/charts for visualization.")
 
 
