@@ -22,8 +22,7 @@ streamlit run Login.py
 ```
 
 To run the application on docker:
-- Install docker
-link[https://docs.docker.com/engine/install/]
+- [Install docker](https://docs.docker.com/engine/install/)
 
 - In terminal go to the directory where you have the Login.py file.
 - Run docker image using following command
