@@ -1,9 +1,10 @@
 import openai
 import os
+import constant
 
 #setup environment key - https://help.openai.com/en/articles/5112595-best-practices-for-api-key-safety
 
-openai.api_key  = os.environ["OPENAI_API_KEY"]
+openai.api_key  = constant.openai_key
 
 #reference: https://github.com/ralphcajipe/chatgpt-prompt-engineering/blob/main/7-chatbot.ipynb
 
