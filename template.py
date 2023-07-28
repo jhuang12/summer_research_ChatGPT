@@ -4,7 +4,8 @@ import constant
 
 #setup environment key - https://help.openai.com/en/articles/5112595-best-practices-for-api-key-safety
 
-openai.api_key  = constant.openai_key
+# openai.api_key  = constant.openai_key
+openai.api_key = os.environ["OPENAI_API_KEY"]
 
 #reference: https://github.com/ralphcajipe/chatgpt-prompt-engineering/blob/main/7-chatbot.ipynb
 
@@ -22,22 +23,27 @@ def get_completion_from_messages(messages, model="gpt-3.5-turbo", temperature=1)
 # %s - name, age, professon, city, country, goal and questions for the chatbot
 # This is the first prompt with all the information that we collected from the users
 prompt1 = f"""
-Hi, my name is %s. I am a %s year old %s who are living in %s, %s. I want to %s. Could you help?' %('Elisa', '26', 'student', 'Seattle', 'USA', 'create a budget with $1200 to maximize my expense power')
+Hi, my name is %s. \n
+I am a %s year old %s who are living in %s, %s. \n
+My monthly income is %s.\n
+My mortgage and loan is %s.\n
+I want to %s. \n
+Could you help create a monthly budget for me?' %('Elisa', '82', 'retiree', 'New York city', 'USA', '$15000', '$1000', 'maximize my expense power')
+
+Your task is to create two budget plans based on the information above and use the difference between monthly income and mortage and loan.
+    A conservative expense to maximize saving and a agressive expense to maximize expense saving
+    Each plan covers 
+        total monthly budget, housing cost, utility, transportation, grocery, entertainment and other areas.
+    Each area above, give the following things:
+        specific amount of expense, exact percentage of the total budget, and practical examples for savings and spendings for each category.
+    Put the plan above into a json object that contains the 
+        following keys: expense type (conservative or aggressive), total monthly budget, housing cost, utility, transportation, grocery, entertainment, areas that I can save for each category
 """
 
-#another way to use massage for prompting
-# messages =  [  
-# {'role':'system', 'content':'You are a chatbot served as a financial advisor expert with user-friend, simple, concise and customer-centric tone. Please check the answers to ensure the accuracy and find quotes and references online before displaying the answers. Please use line breaks for each paragraph if needed.'},    
-# {'role':'user', 'content':'Hi, my name is %s. I am a %s year old %s who are living in %s, %s. I want to %s. Could you help?' %('name', '26', 'student', 'Seattle', 
-# 'USA', 'create a budget with $1200 to maximize my expense power')}  ]
-# response = get_completion_from_messages(messages, temperature=1)
-
 messages =  [  
-{'role':'system', 'content':'You are a chatbot served as a financial advisor expert with user-friend, simple, concise and customer-centric tone. Please check the answers to ensure the accuracy and find quotes and references online before displaying the answers. Please use line breaks for each paragraph if needed.'},    
+{'role':'system', 'content':'You are a chatbot served as a financial advisor expert only speaking JSON. Do not use normal text'},    
 {'role':'user', 'content': prompt1}  ]
 
 response = get_completion_from_messages(messages, temperature=1)
 
 print(response)
-
-#what are we going to do with a followup prompt? Maybe add a prompt2 for the followup. Then, we will need a logic to get the flow. 
