@@ -29,3 +29,5 @@ To run the application on docker:
 ``` 
 docker-compose up
 ```
+- Check out the app on http://0.0.0.0:8501 or http://localhost:8501
+- Signup and login to the account for more details
