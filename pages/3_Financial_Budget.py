@@ -2,14 +2,16 @@ import streamlit as st
 from streamlit import session_state as state
 import matplotlib.pyplot as plt
 from streamlit_chat import message
+import OpenAIClient
 import redis
+import json
 import openai
 from streamlit_extras.switch_page_button import switch_page
 
-def setPieData():
-    labels = ['Frogs', 'Hogs', 'Dogs', 'Logs']
-    sizes = [15, 30, 45, 10]
-    # explode = (0, 0.1, 0, 0)  # only "explode" the 2nd slice (i.e. 'Hogs')
+
+
+
+def setPieData(labels, sizes):
     ax1.pie(sizes, labels=labels)
     ax1.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
     
@@ -37,7 +39,6 @@ else:
     fig1, ax1 = plt.subplots()
 
 
-
     # 2/ Page Component
     a1 = st.text_input('question 1')
     a2 = st.text_input('question 2')
@@ -47,16 +48,31 @@ else:
     # 3/ TODO: Get the response from GPT Model @ Jialin 
         # ?: What data you need to get the expected data we want.
         # ?: Any API I can call?
+    labels = [] 
+    sizes = []
+    if st.button("Get my chart!"):
+        res = OpenAIClient.get_completion_from_messages()
+        st.write('checkp1')
+        json_dict = json.loads(res)["conservative expense"]
+        
+        for item, value in json_dict.items():
+            if "percentage of total budget" in value:
+                # st.write(item, value)
+                labels.append(item)
+                sizes.append(float(value["percentage of total budget"].rstrip('%')))
+        # st.write(labels)
+        # st.write(sizes)
 
 
+        # st.write('here1')
+        # st.write(not labels)
+        # st.write(not sizes)
+        # st.write(len(labels) == len(sizes))
+        # Will parse the data from GPT Model and set data for pie chart.
+        if labels and sizes and len(labels) == len(sizes):
+            setPieData(labels, sizes)
+            st.pyplot(fig1)
 
-
-    # Will parse the data from GPT Model and set data for pie chart.
-    setPieData()
-
-
-    # Draw the picture
-    st.pyplot(fig1)
 
     with st.expander("Need more help?"):
 
