@@ -5,6 +5,7 @@ from streamlit_chat import message
 import OpenAIClient
 import redis
 import json
+import Constant
 import openai
 from streamlit_extras.switch_page_button import switch_page
 
@@ -45,9 +46,7 @@ else:
     a3 = st.text_input('question 3')
     b1 = st.button("Continue")
 
-    # 3/ TODO: Get the response from GPT Model @ Jialin 
-        # ?: What data you need to get the expected data we want.
-        # ?: Any API I can call?
+
     labels = [] 
     sizes = []
     if st.button("Get my chart!"):
@@ -60,14 +59,7 @@ else:
                 # st.write(item, value)
                 labels.append(item)
                 sizes.append(float(value["percentage of total budget"].rstrip('%')))
-        # st.write(labels)
-        # st.write(sizes)
-
-
-        # st.write('here1')
-        # st.write(not labels)
-        # st.write(not sizes)
-        # st.write(len(labels) == len(sizes))
+    
         # Will parse the data from GPT Model and set data for pie chart.
         if labels and sizes and len(labels) == len(sizes):
             setPieData(labels, sizes)
@@ -93,11 +85,11 @@ else:
             message(msg["content"], is_user=msg["role"] == "user", key=idx)
 
         # we need to provide this key.
-        if user_input and not openai_api_key:
+        if user_input and not Constant.api_key:
             st.info("Please add your OpenAI API key to continue.")
 
-        if user_input and openai_api_key:
-            openai.api_key = openai_api_key
+        if user_input and Constant.api_key:
+            openai.api_key = Constant.api_key
             st.session_state.messages.append({"role": "user", "content": user_input})
             message(user_input, is_user=True)
             response = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=st.session_state.messages)
