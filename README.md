@@ -1,5 +1,5 @@
 # summer_research_ChatGPT
-This is a summer research project for 2023, regarding application with ChatGPT
+This is a summer research project for 2023, regarding application with ChatGPT for financial budgeting
 
 To run the application locally:
 - Install streamlit and streamlit_extras
